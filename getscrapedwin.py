@@ -213,36 +213,42 @@ def runtime(word, place):
     scraped_data =  parse_listing(keyword,place)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     if scraped_data:
 
-        print("Writing scraped data to %s-%s-yellowpages-scraped-links.csv"%(keyword,place))
+        print("Writing scraped data to %s-%s-yellowpages-scraped-links.csv"%(city,state))
+        fieldnames = ['business_name', 'website', 'industry', 'city', 'state']
 
-        with open('%s-%s-yellowpages-scraped-links.csv'%(keyword,place),'wb') as csvfile:
 
-            fieldnames = ['business_name', 'website', 'industry', 'city', 'state']
+
+
+        with open('%s-%s-yellowpages-scraped-links.csv'%(city,state),'ab') as csvfile:
+
+
 
             writer = csv.DictWriter(csvfile,fieldnames = fieldnames,quoting=csv.QUOTE_ALL)
 
-            writer.writeheader()
+            if(keyword == 'Abrasive Dealers'):
+                writer.writeheader()
 
             for data in scraped_data:
 
                 writer.writerow(data)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -267,6 +273,7 @@ if __name__=="__main__":
         for elem in categories:
 
             runtime(elem, city + ',' + state)
+
 
         print('STARTING NEW CITY')
 
